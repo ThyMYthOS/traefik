@@ -144,6 +144,7 @@ A maintainer that looks at an issue/PR must define its `kind/*`, `area/*`, and `
 * `area/provider/mesos`: Mesos related.
 * `area/provider/rancher`: Rancher related.
 * `area/provider/servicefabric`: Azure service fabric related.
+* `area/provider/snapd`: Snapd related.
 * `area/provider/zk`: Zoo Keeper related.
 * `area/rules`: Rules related.
 * `area/server`: Server related.
