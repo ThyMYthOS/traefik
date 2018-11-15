@@ -1,0 +1,38 @@
+name: traefik-snap
+version: '1.7.4-snap'
+summary: "Tr\xE6fik, a modern reverse proxy"
+description: "Tr\xE6f\u026Ak is a modern HTTP reverse proxy and load balancer made\
+  \ to deploy microservices with ease. This version supports a snapd backend\
+  \ to manage its configuration automatically and dynamically."
+
+grade: stable
+confinement: strict
+
+parts:
+  go:
+    source-tag: go1.10
+  traefik:
+    after: [go]
+    source: .
+    plugin: dump
+    override-build: |
+      rm -rf ..?* .[!.]* *
+      export GOPATH=`pwd`
+      export PATH=$GOPATH/bin:$PATH
+      mkdir -p src/github.com/containous/traefik
+      cp -ra $SNAPCRAFT_PART_SRC/* src/github.com/containous/traefik
+      cd src/github.com/containous/traefik
+      go get github.com/containous/go-bindata/...
+      go generate
+      go build ./cmd/traefik
+      cp traefik $SNAPCRAFT_PART_INSTALL
+      cp traefik.sample.toml $SNAPCRAFT_PART_INSTALL/traefik.toml
+
+apps:
+  traefik:
+    command: traefik -c traefik.toml
+    daemon: simple
+    plugs:
+      - network
+      - network-bind
+      - snapd-control

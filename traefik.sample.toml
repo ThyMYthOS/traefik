@@ -125,18 +125,20 @@
   # entryPoint = "traefik"
 
 ################################################################
-# Docker configuration backend
+# Snapd configuration backend
 ################################################################
 
-# Enable Docker configuration backend
-[docker]
+# Enable Snapd configuration backend
+[snapd]
 
-# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+# Snapd server endpoint. Can be a tcp or a unix socket endpoint.
 #
 # Required
-# Default: "unix:///var/run/docker.sock"
+# Default: "unix:///run/snapd.socket"
 #
 # endpoint = "tcp://10.10.10.10:2375"
+#
+endpoint = "unix:///run/snapd.socket"
 
 # Default domain used.
 # Can be overridden by setting the "traefik.domain" label on a container.
@@ -144,7 +146,7 @@
 # Optional
 # Default: ""
 #
-# domain = "docker.localhost"
+# domain = "snapd.localhost"
 
 # Expose containers by default in traefik
 #
